@@ -22,11 +22,11 @@ public class App {
 
     public static Javalin getApp() {
         Javalin app = Javalin.create(config -> {
-                    if (!isProduction()) {
-                        config.plugins.enableDevLogging();
-                    }
+            if (!isProduction()) {
+                config.plugins.enableDevLogging();
+            }
 //                    config.enableWebjars();
-                });
+        });
         addRoutes(app);
         app.before(ctx -> ctx.attribute("ctx", ctx));
         return app;
