@@ -4,6 +4,7 @@ plugins {
     id 'jacoco'
     id 'com.adarshr.test-logger' version '3.1.0'
     id 'application'
+    id 'io.ebean' version '13.11.0'
 }
 
 group 'hexlet.code'
@@ -20,9 +21,25 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+
     implementation 'com.puppycrawl.tools:checkstyle:10.6.0'
+
     implementation 'io.javalin:javalin-bundle:5.3.0'
     implementation 'org.slf4j:slf4j-simple:2.0.6'
+
+    implementation 'io.ebean:ebean:13.6.5'
+    annotationProcessor 'io.ebean:querybean-generator:13.6.5'
+    implementation 'io.ebean:ebean-test:13.6.5'
+    implementation 'io.ebean:ebean-querybean:13.6.5'
+    implementation 'io.ebean:ebean-annotation:7.3'
+    implementation 'io.ebean:ebean-ddl-generator:13.6.5'
+    implementation 'io.ebean:ebean-migration:12.15.1'
+
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.5'
+    implementation 'javax.activation:activation:1.1.1'
+
+    implementation 'com.h2database:h2:2.1.210'
+    implementation 'org.postgresql:postgresql:42.3.3'
 }
 
 test {
@@ -57,6 +74,11 @@ jacocoTestReport {
     reports {
         xml.required = true
     }
+}
+
+task runApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'hexlet.code.MigrationGenerator'
 }
 
 //testlogger {
