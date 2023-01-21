@@ -6,6 +6,8 @@ import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import static io.javalin.apibuilder.ApiBuilder.path;
+import static io.javalin.apibuilder.ApiBuilder.get;
 
 public class App {
     private static int getPort() {
@@ -35,6 +37,16 @@ public class App {
 
     private static void addRoutes(Javalin app) {
         app.get("/", RootController.welcome);
+        app.post("/", UrlController.createUrl);
+
+        app.routes(() -> {
+            path("urls", () -> {
+                get(UrlController.listUrls);
+                path("{id}", () -> {
+                    get(UrlController.showUrl);
+                });
+            });
+        });
     }
 
     public static Javalin getApp() {

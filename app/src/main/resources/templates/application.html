@@ -14,7 +14,7 @@
     </div>
     <div>
       <a href="">Главная</a>
-      <a href="">Сайты</a>
+      <a href="/urls">Сайты</a>
     </div>
   </nav>
 
@@ -23,9 +23,9 @@
     <p>Бесплатно проверяйте сайты на SEO пригодность</p>
 
     <section>
-      <form>
-        <input type="text" placeholder="Ссылка">
-        <button>Проверить</button>
+      <form action="/urls" method="post">
+        <input name="url" type="text" placeholder="Ссылка">
+        <button type="submit">Проверить</button>
         <p>Пример: https://www.example.com</p>
       </form>
     </section>

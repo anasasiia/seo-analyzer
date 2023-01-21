@@ -1,0 +1,16 @@
+INSERT INTO url (name, created_at) VALUES
+    ('https://ru.hexlet.io/projects/72/members/27843', '2022-01-19 14:04:34'),
+    ('https://github.com/hexlet-components/java-javalin-blog/blob/main/app/src/test/resources/seed-test-db.sql', '2022-01-19 14:04:34'),
+    ('https://www.youtube.com/', '2022-01-19 14:04:34'),
+    ('https://ru.wikipedia.org/wiki/', '2022-01-19 14:04:34'),
+    ('https://www.wildberries.ru/', '2022-01-19 14:04:34'),
+    ('https://vk.com/', '2022-01-19 14:04:34'),
+    ('https://www.ozon.ru/', '2022-01-19 14:04:34'),
+    ('https://habr.com/ru/all/', '2022-01-19 14:04:34'),
+    ('https://dzen.ru/?yredirect=true', '2022-01-19 14:04:34'),
+    ('https://about.gitlab.com/', '2022-01-19 14:04:34'),
+    ('https://leetcode.com/', '2022-01-19 14:04:34'),
+    ('https://hh.ru/?customDomain=1', '2022-01-19 14:04:34'),
+    ('https://codebattle.hexlet.io/', '2022-01-19 14:04:34'),
+    ('https://cv.hexlet.io/', '2022-01-19 14:04:34'),
+    ('https://www.google.com/', '2022-01-19 14:04:34');

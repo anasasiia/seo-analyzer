@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Анализатор страниц</title>
+  <link rel='stylesheet' href='/webjars/bootstrap/5.1.1/css/bootstrap.min.css'>
+  <script src="/webjars/bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Последняя проверка</th>
+        <th>Код ответа</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="url : ${urls}" th:object="${url}">
+        <td th:text="*{getId()}"></td>
+        <td>
+          <a href="@{/urls/{id}(id=*{getId()})}" th:text="*{getName}"></a>
+        </td>
+        <td></td>
+        <td th:text="${#temporals.format(article.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
