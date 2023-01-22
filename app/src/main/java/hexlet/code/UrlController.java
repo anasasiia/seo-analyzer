@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.query.QUrl;
+import io.ebean.PagedList;
 import io.javalin.http.Handler;
 import io.javalin.http.NotFoundResponse;
 
@@ -43,9 +44,21 @@ public class UrlController {
     };
 
     public static Handler listUrls = ctx -> {
-        List<Url> urls = new QUrl().findList();
+        int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
+        int rowsPerPage = 10;
+        int offset = (page - 1) * rowsPerPage;
+
+        PagedList<Url> pagedUrls = new QUrl()
+                .setFirstRow(offset)
+                .setMaxRows(rowsPerPage)
+                .orderBy()
+                    .id.asc()
+                .findPagedList();
+
+        List<Url> urls = pagedUrls.getList();
 
         ctx.attribute("urls", urls);
+        ctx.attribute("page", page);
         ctx.render("index.html");
     };
 
