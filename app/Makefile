@@ -12,6 +12,9 @@ install:
 run-dist:
 	./build/install/java-package/bin/java-package
 
+start-dist:
+	APP_ENV=production ./build/install/app/bin/app
+
 run:
 	./gradlew run
 
