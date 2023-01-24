@@ -60,6 +60,7 @@ public class App {
         addRoutes(app);
         app.before(ctx -> ctx.attribute("ctx", ctx));
         return app;
+
     }
 
     public static void main(String[] args) {
