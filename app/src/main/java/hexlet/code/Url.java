@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Entity
 public class Url extends Model {
@@ -36,5 +38,15 @@ public class Url extends Model {
 
     public String getName() {
         return name;
+    }
+
+    public List<UrlCheck> getChecks() {
+        return checks;
+    }
+
+    public UrlCheck getLastCheck() {
+        return checks.stream()
+                .max(Comparator.comparing(UrlCheck::getId))
+                .orElseThrow(NoSuchElementException::new);
     }
 }

@@ -13,9 +13,9 @@
 
   <main class="flex-grow-1">
 
-    <div class="container-lg mt-5">
-      <h1>Сайт </h1>
-      <table class="table table-bordered table-hover mt-3" th:object="${url}">
+    <div class="container-lg mt-5" th:object="${url}">
+      <h1 th:text="'Сайт ' + *{getName()}"></h1>
+      <table class="table table-bordered table-hover mt-3">
         <tr>
           <td>ID</td>
           <td th:text="*{getId()}"></td>
@@ -31,27 +31,35 @@
       </table>
 
       <h2 class="mt-5">Проверки</h2>
-      <form method="post" action="@{id}(id=*{getId()})">
+      <form method="post" th:action="@{/urls/{id}/checks(id=*{getId()})}">
         <button type="submit" class="btn btn-primary">Запустить проверку</button>
       </form>
 
-      <table class="table table-bordered table-hover mt-3"  th:if="${not #lists.isEmpty(checks)}" th:each="check : ${checks}">
+      <table class="table table-bordered table-hover mt-3">
         <thead>
-          <tr>
-            <th class="col-1" th:text="${check.getId()}">ID</th>
-            <th class="col-1" th:text="${check.getStatusCode}">Код ответа</th>
-            <th th:text="${check.getTitle}">title</th>
-            <th th:text="${check.getH1}">h1</th>
-            <th th:text="${check.getDescription}">description</th>
-            <th class="col-2" th:text="${check.getCreatedAt}">Дата проверки</th>
-          </tr>
+            <th class="col-1">ID</th>
+            <th class="col-1" >Код ответа</th>
+            <th>title</th>
+            <th>h1</th>
+            <th>description</th>
+            <th class="col-2" >Дата проверки</th>
         </thead>
-        <tbody>
+        <tbody th:if="${not #lists.isEmpty(checks)}" th:each="check : ${checks}">
+          <tr>
+            <td th:text="${check.getId()}"></td>
+            <td th:text="${check.getStatusCode()}"></td>
+            <td th:text="${check.getTitle()}"></td>
+            <td th:text="${check.getH1()}"></td>
+            <td th:text="${check.getDescription()}"></td>
+            <td th:text="${#temporals.format(check.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
   </main>
 
-  <div th:insert="~{application.html :: #footer-section}"></div>
+  <div class="bottom-0">
+    <div th:insert="~{application.html :: #footer-section}"></div>
+  </div>
   </html>

@@ -1,7 +1,9 @@
 package hexlet.code.controllers;
 
 import hexlet.code.Url;
+import hexlet.code.UrlCheck;
 import hexlet.code.query.QUrl;
+import hexlet.code.query.QUrlCheck;
 import io.ebean.PagedList;
 import io.javalin.http.Handler;
 import io.javalin.http.NotFoundResponse;
@@ -53,7 +55,7 @@ public class UrlController {
                 .setFirstRow(offset)
                 .setMaxRows(rowsPerPage)
                 .orderBy()
-                .id.asc()
+                    .id.asc()
                 .findPagedList();
 
         List<Url> urls = pagedUrls.getList();
@@ -82,6 +84,9 @@ public class UrlController {
             throw new NotFoundResponse();
         }
 
+        List<UrlCheck> checks = new QUrlCheck().findList();
+
+        ctx.attribute("checks", checks);
         ctx.attribute("url", url);
         ctx.render("show.html");
     };

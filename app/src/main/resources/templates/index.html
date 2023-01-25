@@ -12,6 +12,10 @@
 </div>
 
 <main class="flex-grow-1">
+  <div th:if="${session.flash}" th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${ctx.consumeSessionAttribute('flash-type')}"
+          role="alert">
+    <p class="m-0" th:text="${ctx.consumeSessionAttribute('flash')}"></p>
+  </div>
   <div class="container-lg mt-5">
     <h1>Сайты</h1>
     <table class="table table-bordered table-hover mt-3">
@@ -27,10 +31,10 @@
       <tr th:each="url : ${urls}" th:object="${url}">
         <td th:text="*{getId()}"></td>
         <td>
-          <a href="@{id}(id=*{getId()})" th:text="*{getName}"></a>
+          <a th:href="@{/urls/{id}(id=*{getId()})}" th:text="*{getName}"></a>
         </td>
-        <td></td>
-        <td th:text="${#temporals.format(url.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:if="${not #lists.isEmpty(url.getChecks())}" th:text="${#temporals.format(url.getLastCheck().getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:if="${not #lists.isEmpty(url.getChecks())}" th:text="*{getLastCheck().getStatusCode()}"></td>
       </tr>
       </tbody>
     </table>

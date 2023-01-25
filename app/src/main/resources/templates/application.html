@@ -43,7 +43,11 @@
                 </div>
               </div>
               <div class="col-auto">
-                <button type="submit" class="h-100 btn btn-lg btn-primary px-sm-5">Проверить</button>
+                <div th:if="${session.flash}" th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-'
+                + ${ctx.consumeSessionAttribute('flash-type')}" role="alert">
+                  <p class="m-0" th:text="${ctx.consumeSessionAttribute('flash')}"></p>
+                </div>
+                  <button type="submit" class="h-100 btn btn-lg btn-primary px-sm-5">Проверить</button>
               </div>
             </div>
           </form>
@@ -55,7 +59,7 @@
 </main>
 
 <div id="footer-section">
-  <footer class="footer border-top py-3 bg-light">
+  <footer class="footer border-top py-3 bg-light bottom-0">
     <div class="container-xl text-center">
       created by
       <a href="https://ru.hexlet.io">Hexlet</a>
