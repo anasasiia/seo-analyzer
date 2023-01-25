@@ -27,7 +27,7 @@
       <tr th:each="url : ${urls}" th:object="${url}">
         <td th:text="*{getId()}"></td>
         <td>
-          <a href="@{/urls/{id}(id=*{getId()})}" th:text="*{getName}"></a>
+          <a href="@{id}(id=*{getId()})" th:text="*{getName}"></a>
         </td>
         <td></td>
         <td th:text="${#temporals.format(url.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>

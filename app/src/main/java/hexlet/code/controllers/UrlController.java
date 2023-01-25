@@ -1,5 +1,6 @@
-package hexlet.code;
+package hexlet.code.controllers;
 
+import hexlet.code.Url;
 import hexlet.code.query.QUrl;
 import io.ebean.PagedList;
 import io.javalin.http.Handler;
@@ -13,11 +14,10 @@ public class UrlController {
     public static Handler createUrl = ctx -> {
         String nameFromParam = ctx.formParam("url");
 
-
         if (nameFromParam.isEmpty()) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
-            return;
+            ctx.redirect("/");
         }
 
         URL aURL = new URL(nameFromParam);
@@ -34,8 +34,7 @@ public class UrlController {
         if (isExisted) {
             ctx.sessionAttribute("flash", "Страница уже существует");
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.attribute("url", url);
-            ctx.render("");
+            ctx.redirect("/urls");
             return;
         }
 

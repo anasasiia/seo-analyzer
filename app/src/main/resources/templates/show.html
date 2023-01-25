@@ -31,19 +31,19 @@
       </table>
 
       <h2 class="mt-5">Проверки</h2>
-      <form method="post" action="">
+      <form method="post" action="@{id}(id=*{getId()})">
         <button type="submit" class="btn btn-primary">Запустить проверку</button>
       </form>
 
-      <table class="table table-bordered table-hover mt-3">
+      <table class="table table-bordered table-hover mt-3"  th:if="${not #lists.isEmpty(checks)}" th:each="check : ${checks}">
         <thead>
           <tr>
-            <th class="col-1">ID</th>
-            <th class="col-1">Код ответа</th>
-            <th>title</th>
-            <th>h1</th>
-            <th>description</th>
-            <th class="col-2">Дата проверки</th>
+            <th class="col-1" th:text="${check.getId()}">ID</th>
+            <th class="col-1" th:text="${check.getStatusCode}">Код ответа</th>
+            <th th:text="${check.getTitle}">title</th>
+            <th th:text="${check.getH1}">h1</th>
+            <th th:text="${check.getDescription}">description</th>
+            <th class="col-2" th:text="${check.getCreatedAt}">Дата проверки</th>
           </tr>
         </thead>
         <tbody>

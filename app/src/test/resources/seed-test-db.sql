@@ -7,10 +7,4 @@ INSERT INTO url (name, created_at) VALUES
     ('https://vk.com', '2022-01-19 14:04:34'),
     ('https://www.ozon.ru', '2022-01-19 14:04:34'),
     ('https://habr.com/ru', '2022-01-19 14:04:34'),
-    ('https://dzen.ru', '2022-01-19 14:04:34'),
-    ('https://about.gitlab.com', '2022-01-19 14:04:34'),
-    ('https://leetcode.com', '2022-01-19 14:04:34'),
-    ('https://hh.ru', '2022-01-19 14:04:34'),
-    ('https://codebattle.hexlet.io', '2022-01-19 14:04:34'),
-    ('https://cv.hexlet.io', '2022-01-19 14:04:34'),
-    ('https://www.google.com', '2022-01-19 14:04:34');
+    ('https://dzen.ru', '2022-01-19 14:04:34')

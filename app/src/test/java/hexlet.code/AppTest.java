@@ -1,6 +1,6 @@
 package hexlet.code;
 
-//import hexlet.code.query.QUrl;
+import hexlet.code.query.QUrl;
 import io.ebean.DB;
 import io.ebean.Database;
 import io.javalin.Javalin;
@@ -60,32 +60,32 @@ public class AppTest {
             assertThat(body).contains("https://www.youtube.com");
         }
 
-//        @Test
-//        void testNew() {
-//            String url = "https://ru.pinterest.com/";
-//            HttpResponse<String> responsePost = Unirest
-//                    .post(baseUrl + "/urls")
-//                    .field("url", url)
-//                    .asEmpty();
-//
-//            assertThat(responsePost.getStatus()).isEqualTo(302);
-//            assertThat(responsePost.getHeaders().getFirst("Location")).isEqualTo("/urls");
-//
-//            HttpResponse<String> response = Unirest
-//                    .get(baseUrl + "/urls")
-//                    .asString();
-//            String body = response.getBody();
-//
-//            assertThat(response.getStatus()).isEqualTo(200);
+        @Test
+        void testNew() {
+            String url = "https://ru.pinterest.com";
+            HttpResponse<String> responsePost = Unirest
+                    .post(baseUrl + "/urls")
+                    .field("url", url)
+                    .asEmpty();
+
+            assertThat(responsePost.getStatus()).isEqualTo(302);
+            assertThat(responsePost.getHeaders().getFirst("Location")).isEqualTo("/urls");
+
+            HttpResponse<String> response = Unirest
+                    .get(baseUrl + "/urls")
+                    .asString();
+            String body = response.getBody();
+
+            assertThat(response.getStatus()).isEqualTo(200);
 //            assertThat(body).contains(url);
-//
-//            Url actualUrl = new QUrl()
-//                    .name.iequalTo(url)
-//                    .findOne();
-//
-//            assertThat(actualUrl).isNotNull();
-//            assertThat(actualUrl.getName()).isEqualTo(url);
-//        }
+
+            Url actualUrl = new QUrl()
+                    .name.iequalTo(url)
+                    .findOne();
+
+            assertThat(actualUrl).isNotNull();
+            assertThat(actualUrl.getName()).isEqualTo(url);
+        }
 
         @Test
         void testShow() {
