@@ -3,6 +3,7 @@ package hexlet.code;
 import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -21,7 +22,7 @@ public class Url extends Model {
     @WhenCreated
     Instant createdAt;
 
-    @OneToMany(mappedBy = "url")
+    @OneToMany(cascade = CascadeType.ALL)
     List<UrlCheck> checks;
 
     public Url(String name) {
@@ -44,9 +45,23 @@ public class Url extends Model {
         return checks;
     }
 
-    public UrlCheck getLastCheck() {
-        return checks.stream()
-                .max(Comparator.comparing(UrlCheck::getId))
-                .orElseThrow(NoSuchElementException::new);
+    public Instant getCreatedAtOfLastCheck() {
+        if (!checks.isEmpty()) {
+            UrlCheck lastCheck = checks.stream()
+                    .max(Comparator.comparing(UrlCheck::getId))
+                    .orElseThrow(NoSuchElementException::new);
+            return lastCheck.getCreatedAt();
+        }
+        return null;
+    }
+
+    public Integer getStatusCodeOfLastCheck() {
+        if (!checks.isEmpty()) {
+            UrlCheck lastCheck = checks.stream()
+                    .max(Comparator.comparing(UrlCheck::getId))
+                    .orElseThrow(NoSuchElementException::new);
+            return lastCheck.getStatusCode();
+        }
+        return null;
     }
 }

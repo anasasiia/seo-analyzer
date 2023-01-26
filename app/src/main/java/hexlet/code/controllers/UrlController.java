@@ -8,6 +8,7 @@ import io.ebean.PagedList;
 import io.javalin.http.Handler;
 import io.javalin.http.NotFoundResponse;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -16,15 +17,25 @@ public class UrlController {
     public static Handler createUrl = ctx -> {
         String nameFromParam = ctx.formParam("url");
 
-        if (nameFromParam.isEmpty()) {
+//        if (nameFromParam.isEmpty()) {
+//            ctx.sessionAttribute("flash", "Некорректный URL");
+//            ctx.sessionAttribute("flash-type", "danger");
+//            ctx.redirect("/");
+//        }
+//
+        String protocol = "";
+        String authority = "";
+
+        try {
+            URL aURL = new URL(nameFromParam);
+            protocol = aURL.getProtocol();
+            authority = aURL.getAuthority();
+        } catch (MalformedURLException e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
             ctx.redirect("/");
+            return;
         }
-
-        URL aURL = new URL(nameFromParam);
-        String protocol = aURL.getProtocol();
-        String authority = aURL.getAuthority();
 
         String name = protocol + "://" + authority;
         Url url = new Url(name);
@@ -84,7 +95,11 @@ public class UrlController {
             throw new NotFoundResponse();
         }
 
-        List<UrlCheck> checks = new QUrlCheck().findList();
+        List<UrlCheck> checks = new QUrlCheck()
+                .url.name.iequalTo(url.getName())
+                .orderBy()
+                    .id.desc()
+                .findList();
 
         ctx.attribute("checks", checks);
         ctx.attribute("url", url);

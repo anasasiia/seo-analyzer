@@ -3,8 +3,6 @@ package hexlet.code;
 import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -19,7 +17,7 @@ public class UrlCheck extends Model {
     @WhenCreated
     Instant createdAt;
 
-    long statusCode;
+    int statusCode;
 
     String title;
 
@@ -28,15 +26,15 @@ public class UrlCheck extends Model {
     @Lob
     String description;
 
-    @Basic(optional = false)
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     Url url;
 
-    public UrlCheck(String title, String h1, String description, long statusCode) {
+    public UrlCheck(String title, String h1, String description, int statusCode, Url url) {
         this.title = title;
         this.h1 = h1;
         this.description = description;
         this.statusCode = statusCode;
+        this.url = url;
     }
 
     public long getId() {
@@ -55,7 +53,7 @@ public class UrlCheck extends Model {
         return createdAt;
     }
 
-    public long getStatusCode() {
+    public int getStatusCode() {
         return statusCode;
     }
 

@@ -44,7 +44,7 @@ public class UrlCheckController {
         }
 
         int statusCode = response.getStatus();
-        UrlCheck urlCheck = new UrlCheck(title, h1, description, statusCode);
+        UrlCheck urlCheck = new UrlCheck(title, h1, description, statusCode, url);
         urlCheck.save();
 
         ctx.sessionAttribute("flash", "Страница успешно проверена");
