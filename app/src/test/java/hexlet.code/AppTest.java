@@ -23,7 +23,7 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AppTest {
+class AppTest {
     private static Javalin app;
     private static String baseUrl;
     private static Database database;
@@ -43,7 +43,7 @@ public class AppTest {
     }
 
     @BeforeEach
-    void beforeEach() throws IOException {
+    void beforeEach() {
         database.script().run("/truncate.sql");
         database.script().run("/seed-test-db.sql");
     }

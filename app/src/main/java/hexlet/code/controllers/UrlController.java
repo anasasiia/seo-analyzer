@@ -17,12 +17,6 @@ public class UrlController {
     public static Handler createUrl = ctx -> {
         String nameFromParam = ctx.formParam("url");
 
-//        if (nameFromParam.isEmpty()) {
-//            ctx.sessionAttribute("flash", "Некорректный URL");
-//            ctx.sessionAttribute("flash-type", "danger");
-//            ctx.redirect("/");
-//        }
-//
         String protocol = "";
         String authority = "";
 

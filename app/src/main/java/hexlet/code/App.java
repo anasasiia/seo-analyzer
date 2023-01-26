@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.controllers.RootController;
 import hexlet.code.controllers.UrlCheckController;
 import hexlet.code.controllers.UrlController;
 import io.javalin.Javalin;
