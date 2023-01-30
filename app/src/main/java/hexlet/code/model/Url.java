@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.code.model;
 
 import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;

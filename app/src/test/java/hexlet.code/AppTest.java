@@ -1,7 +1,9 @@
 package hexlet.code;
 
-import hexlet.code.query.QUrl;
-import hexlet.code.query.QUrlCheck;
+import hexlet.code.model.Url;
+import hexlet.code.model.UrlCheck;
+import hexlet.code.model.query.QUrl;
+import hexlet.code.model.query.QUrlCheck;
 import io.ebean.DB;
 import io.ebean.Database;
 import io.javalin.Javalin;
@@ -166,5 +168,3 @@ class AppTest {
     }
 
 }
-
-

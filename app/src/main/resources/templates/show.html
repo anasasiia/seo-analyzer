@@ -53,9 +53,9 @@
             <tr>
               <td th:text="${check.getId()}"></td>
               <td th:text="${check.getStatusCode()}"></td>
-              <td th:text="${check.getTitle()}"></td>
-              <td th:text="${check.getH1()}"></td>
-              <td th:text="${check.getDescription()}"></td>
+              <td th:text="${#strings.abbreviate(check.getTitle(), 30)}"></td>
+              <td th:text="${#strings.abbreviate(check.getH1(), 30)}"></td>
+              <td th:text="${#strings.abbreviate(check.getDescription(), 60)}"></td>
               <td th:text="${#temporals.format(check.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
           </tbody>

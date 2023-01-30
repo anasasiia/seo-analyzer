@@ -1,12 +1,18 @@
 package hexlet.code.controllers;
 
-import hexlet.code.Url;
-import hexlet.code.UrlCheck;
-import hexlet.code.query.QUrl;
-import hexlet.code.query.QUrlCheck;
+import hexlet.code.model.Url;
+import hexlet.code.model.UrlCheck;
+import hexlet.code.model.query.QUrl;
+import hexlet.code.model.query.QUrlCheck;
 import io.ebean.PagedList;
 import io.javalin.http.Handler;
 import io.javalin.http.NotFoundResponse;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,8 +23,8 @@ public class UrlController {
     public static Handler createUrl = ctx -> {
         String nameFromParam = ctx.formParam("url");
 
-        String protocol = "";
-        String authority = "";
+        String protocol;
+        String authority;
 
         try {
             URL aURL = new URL(nameFromParam);
@@ -98,5 +104,52 @@ public class UrlController {
         ctx.attribute("checks", checks);
         ctx.attribute("url", url);
         ctx.render("show.html");
+    };
+
+    public static Handler createCheck = ctx -> {
+        long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+        Url url = new QUrl()
+                .id.equalTo(id)
+                .findOne();
+
+        try {
+            HttpResponse<String> response = Unirest.get(url.getName()).asString();
+            String html = response.getBody();
+            Document doc = Jsoup.parse(html);
+            String title = "";
+            String titleParsed = doc.title();
+
+            if (!titleParsed.isEmpty()) {
+                title = titleParsed;
+            }
+
+            String h1 = "";
+            Element h1Parsed = doc.selectFirst("h1");
+
+            if (h1Parsed != null) {
+                h1 = h1Parsed.text();
+            }
+
+            String description = "";
+            Element descriptionParsed = doc.selectFirst("meta[name=description]");
+
+            if (descriptionParsed != null) {
+                description = descriptionParsed.attr("content");
+            }
+
+            int statusCode = response.getStatus();
+            UrlCheck urlCheck = new UrlCheck(title, h1, description, statusCode, url);
+            urlCheck.save();
+
+        } catch (UnirestException e) {
+            ctx.sessionAttribute("flash", "Страница не существует");
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.redirect("/urls/" + id);
+            return;
+        }
+
+        ctx.sessionAttribute("flash", "Страница успешно проверена");
+        ctx.sessionAttribute("flash-type", "success");
+        ctx.redirect("/urls/" + id);
     };
 }
