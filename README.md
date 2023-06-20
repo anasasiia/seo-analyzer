@@ -4,9 +4,6 @@
 ## Анализатор страниц
 SEO-analyzer checks websites for SEO suitability for free. Get title, h1 and description of the website.
 
-### Check application
-https://project-72.onrender.com
-
 ### Requirements
 - JDK 17
 - Gradle 7
